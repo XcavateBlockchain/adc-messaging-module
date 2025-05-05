@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;
 
@@ -10,6 +11,7 @@ pub struct DirectMessageOptions {
     #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
     #[tsify(optional)]
+    #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,
@@ -23,15 +25,19 @@ pub struct DirectMessageOptions {
 pub struct KeySharingMessageOptions {
     pub(crate) id: String,
     #[tsify(optional)]
+    #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
     #[tsify(optional)]
+    #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,
     #[tsify(optional)]
     pub(crate) from: Option<String>,
+    #[serde(rename = "latestKey")]
     pub(crate) latest_key: Key,
     #[tsify(optional)]
+    #[serde(rename = "previousKeys")]
     pub(crate) previous_keys: Option<Vec<Key>>,
 }
 
@@ -66,7 +72,9 @@ pub struct MediaItemsMessageOptions {
     #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
     #[tsify(optional)]
+    #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
+    #[serde(rename = "mediaItems")]
     pub(crate) media_items: Vec<MediaItem>,
 }
 
@@ -86,7 +94,8 @@ pub struct MediaItem {
     /// The hash of the content encoded in multi-hash format. Used as an integrity check for the attachment.
     pub hash: String,
     /// Encryption information
-    pub ciphering: Option<serde_json::Value>,
+    #[tsify(type = "any | null")]
+    pub ciphering: Option<Value>,
 }
 
 impl Into<didcomm_module::MediaItem> for MediaItem {

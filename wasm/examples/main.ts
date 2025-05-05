@@ -1,7 +1,7 @@
 import { IMessage, Message } from "didcomm-node";
 import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "message-module/wasm";
 
-async function main() {
+function main() {
     // Direct message example.
     let directMessageString = createDirectMessage({
         id: "test-id-1",
@@ -12,7 +12,7 @@ async function main() {
         message: "test message"
     });
 
-    let directMsg = new Message(JSON.parse(directMessageString) as IMessage);
+    let directMsg = new Message(JSON.parse(directMessageString) );
     console.log("Direct message:");
     console.log(directMsg.as_value());
 
@@ -70,16 +70,14 @@ async function main() {
                     key: "test-key"
                 }
             }
-        ],
-    })
+        ]
+    });
 
     console.log(JSON.stringify(JSON.parse(mediaItemsMessageString), null, 2));
     let mediaItems = new Message(JSON.parse(mediaItemsMessageString) as IMessage);
     console.log("Media items message:");
     console.log(JSON.stringify(mediaItems.as_value(), null, 2));
 }
-
-
 
 /**
  *  Create a time in seconds.
@@ -95,10 +93,4 @@ function time(afterYears?: number): number {
     return Math.floor(date.getTime() / 1000);
 }
 
-main()
-    .then(() => {
-        console.log("done");
-    })
-    .catch((err) => {
-        console.error(err);
-    });
+main();

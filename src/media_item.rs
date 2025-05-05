@@ -1,7 +1,8 @@
-use alloc::string::String;
+use alloc::string::{String, ToString};
 use didcomm::{Attachment, LinksAttachmentData};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use uuid::Uuid;
 
 use crate::error::MessageBuilderError;
 
@@ -25,6 +26,8 @@ pub struct MediaItem {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 struct MediaItemInBody {
+    #[serde(rename = "@id")]
+    id: String,
     attachment_id: String,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,6 +37,7 @@ struct MediaItemInBody {
 impl MediaItem {
     pub(crate) fn to_body_item(&self) -> Result<Value, MessageBuilderError> {
         serde_json::to_value(MediaItemInBody {
+            id: Uuid::new_v4().to_string(),
             attachment_id: self.id.clone(),
             ciphering: self.ciphering.clone(),
         })

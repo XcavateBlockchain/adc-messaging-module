@@ -6,8 +6,8 @@ pub enum MessageBuilderError {
     MissingBody,
     SerializationError,
     MissingLatestKey,
-    MissingPreviousKeys,
     MissingMessage,
+    MissingMediaItem,
 }
 
 impl Display for MessageBuilderError {
@@ -17,8 +17,8 @@ impl Display for MessageBuilderError {
             MessageBuilderError::MissingBody => "Missing body in the message",
             MessageBuilderError::SerializationError => "Error during message serialization",
             MessageBuilderError::MissingLatestKey => "Missing latest key",
-            MessageBuilderError::MissingPreviousKeys => "Missing previous keys",
             MessageBuilderError::MissingMessage => "Missing message content",
+            MessageBuilderError::MissingMediaItem => "Missing media item",
         };
         write!(f, "{}", msg)
     }

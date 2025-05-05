@@ -38,15 +38,19 @@ impl KeySharingMessageBuilder {
             .latest_key
             .clone()
             .ok_or(MessageBuilderError::MissingLatestKey)?;
-        let previous_keys = self
-            .previous_keys
-            .clone()
-            .ok_or(MessageBuilderError::MissingPreviousKeys)?;
+        let previous_keys = self.previous_keys.clone();
 
-        let body = serde_json::json!({
-            "latestKey": latest_key,
-            "previousKeys" : previous_keys
-        });
+        let body = if let Some(previous_keys) = previous_keys {
+            serde_json::json!({
+                "latestKey": latest_key,
+                "previousKeys" : previous_keys
+            })
+        } else {
+            serde_json::json!({
+                "latestKey": latest_key,
+            })
+        };
+
         let mut didcomm_msg_builder = Message::build(id, type_.into(), body);
 
         didcomm_msg_builder = self.add_common_to_builder(didcomm_msg_builder)?;

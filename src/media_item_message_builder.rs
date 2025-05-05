@@ -31,7 +31,7 @@ impl MediaItemsMessageBuilder {
         let media_items = self
             .media_items
             .clone()
-            .ok_or(MessageBuilderError::MissingBody)?;
+            .ok_or(MessageBuilderError::MissingMediaItem)?;
         let value_media_items = media_items
             .iter()
             .map(|item| item.to_body_item())

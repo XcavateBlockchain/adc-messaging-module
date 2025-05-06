@@ -4,6 +4,7 @@ use didcomm::MessageBuilder;
 
 use crate::{error::MessageBuilderError, impl_common_builder, Key};
 
+/// Builder for creating a DIDComm message for key sharing.
 #[derive(Debug, Clone, Default)]
 pub struct KeySharingMessageBuilder {
     id: Option<String>,
@@ -16,6 +17,8 @@ pub struct KeySharingMessageBuilder {
 }
 
 impl KeySharingMessageBuilder {
+    /// Adds a previous key.
+    /// Multiple previous keys can be added.
     pub fn previous_key(mut self, value: Key) -> Self {
         if let Some(ref mut self_previous_keys) = self.previous_keys {
             self_previous_keys.push(value);
@@ -25,11 +28,14 @@ impl KeySharingMessageBuilder {
         self
     }
 
+    /// Sets the latest key.
+    /// Overwrites if called multiple times.
     pub fn latest_key(mut self, value: Key) -> Self {
         self.latest_key = Some(value);
         self
     }
 
+    /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         // TODO: Replace with actual base URI? / take it from user?.
         let type_ = "<baseuri>/share-media";

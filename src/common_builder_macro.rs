@@ -2,14 +2,18 @@
 macro_rules! impl_common_builder {
     ($builder:ty) => {
         impl $builder {
+            /// Creates a new instance of the builder.
             pub fn new() -> Self {
                 Self::default()
             }
 
+            /// Sets the ID of the message.
             pub fn id(mut self, id: String) -> Self {
                 self.id = Some(id);
                 self
             }
+
+            /// Sets the `to` field of the message.
             pub fn to(mut self, value: String) -> Self {
                 if let Some(ref mut self_to) = self.to {
                     self_to.push(value);
@@ -19,11 +23,15 @@ macro_rules! impl_common_builder {
                 self
             }
 
+            /// Sets the `from` field of the message.
             pub fn from(mut self, from: String) -> Self {
                 self.from = Some(from);
                 self
             }
 
+            /// Sets the `created_time` field of the message.
+            /// If `created_time` is `None`, it will be set to the current time.
+            /// The value is in seconds since the Unix epoch.
             pub fn created_time(mut self, created_time: Option<u64>) -> Self {
                 if let Some(created_time) = created_time {
                     self.created_time = Some(created_time);
@@ -33,6 +41,8 @@ macro_rules! impl_common_builder {
                 self
             }
 
+            /// Sets the `expires_time` field of the message.
+            /// The value is in seconds since the Unix epoch.
             pub fn expires_time(mut self, expires_time: u64) -> Self {
                 self.expires_time = Some(expires_time);
                 self

@@ -1,11 +1,11 @@
-use didcomm_module::DirectMessageBuilder;
+use didcomm_module::{DirectMessageBuilder, MessageBuilderError};
 use serde_json::json;
 
 #[test]
-pub fn builder() {
-    let msg = DirectMessageBuilder::new()
-        .message("Hello World.".to_string())
+pub fn direct_message() {
+    let msg: didcomm_module::didcomm::Message = DirectMessageBuilder::new()
         .id("message-id".to_string())
+        .message("Hello World.".to_string())
         .build()
         .unwrap();
 
@@ -18,4 +18,16 @@ pub fn builder() {
         "type": "https://didcomm.org/basicmessage/2.0/message"
     });
     assert_eq!(expected, serde_json::to_value(msg).unwrap());
+}
+
+#[test]
+pub fn direct_message_no_message() {
+    let msg = DirectMessageBuilder::new()
+        .id("message-id".to_string())
+        .build();
+
+    assert!(matches!(
+        msg.unwrap_err(),
+        MessageBuilderError::MissingMessage
+    ));
 }

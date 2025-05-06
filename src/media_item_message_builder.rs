@@ -3,6 +3,7 @@ use didcomm::{Message, MessageBuilder};
 
 use crate::{error::MessageBuilderError, impl_common_builder, MediaItem};
 
+/// Builder for creating a DIDComm message for media items.
 #[derive(Debug, Clone, Default)]
 pub struct MediaItemsMessageBuilder {
     to: Option<Vec<String>>,
@@ -14,6 +15,8 @@ pub struct MediaItemsMessageBuilder {
 }
 
 impl MediaItemsMessageBuilder {
+    /// Adds a media item to include in the message.
+    /// Multiple media items can be added.
     pub fn media_item(mut self, value: MediaItem) -> Self {
         if let Some(ref mut self_media_items) = self.media_items {
             self_media_items.push(value);
@@ -23,6 +26,7 @@ impl MediaItemsMessageBuilder {
         self
     }
 
+    /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         // TODO: Replace with actual base URI? / take it from user?.
         let type_ = "<baseuri>/share-media";

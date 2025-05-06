@@ -5,6 +5,7 @@ use didcomm::MessageBuilder;
 use crate::error::MessageBuilderError;
 use crate::impl_common_builder;
 
+/// Builder for creating a DIDComm message for direct messages.
 #[derive(Debug, Clone, Default)]
 pub struct DirectMessageBuilder {
     id: Option<String>,
@@ -18,11 +19,13 @@ pub struct DirectMessageBuilder {
 }
 
 impl DirectMessageBuilder {
+    /// Sets the content of the message.
     pub fn message(mut self, value: String) -> Self {
         self.message = Some(value);
         self
     }
 
+    /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         let type_ = "https://didcomm.org/basicmessage/2.0/message";
         let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;

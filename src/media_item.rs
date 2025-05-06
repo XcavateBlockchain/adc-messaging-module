@@ -6,6 +6,7 @@ use uuid::Uuid;
 
 use crate::error::MessageBuilderError;
 
+// / Represents a media item in a DIDComm message.
 #[derive(Debug, Clone)]
 pub struct MediaItem {
     /// Attachment ID.

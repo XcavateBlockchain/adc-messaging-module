@@ -45,5 +45,4 @@ impl DirectMessageBuilder {
     }
 }
 
-
 impl_common_builder!(DirectMessageBuilder);

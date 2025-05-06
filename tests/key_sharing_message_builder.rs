@@ -46,7 +46,10 @@ pub fn key_sharing_no_latest_key() {
         .id("message-id".to_string())
         .previous_key(key1())
         .build();
-    assert!(matches!(msg.unwrap_err(), MessageBuilderError::MissingLatestKey));
+    assert!(matches!(
+        msg.unwrap_err(),
+        MessageBuilderError::MissingLatestKey
+    ));
 }
 
 #[test]
@@ -57,7 +60,6 @@ pub fn key_sharing_no_previous_keys() {
         .build();
     assert!(msg.is_ok());
 }
-
 
 fn key1() -> Key {
     Key {

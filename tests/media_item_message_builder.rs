@@ -75,9 +75,11 @@ pub fn media_item_no_id() {
 
 #[test]
 pub fn media_item_no_media_item() {
-
     let msg = MediaItemsMessageBuilder::new()
         .id("message-id".to_string())
         .build();
-    assert!(matches!(msg.unwrap_err(), MessageBuilderError::MissingMediaItem));
+    assert!(matches!(
+        msg.unwrap_err(),
+        MessageBuilderError::MissingMediaItem
+    ));
 }

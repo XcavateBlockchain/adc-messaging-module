@@ -2,6 +2,11 @@ import { IMessage, Message } from "didcomm-node";
 import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "message-module/wasm";
 
 function main() {
+    // This example uses the helper functions from this module to create messages.
+    // Messages are created in a JSON format, which is then converted to a `Message` object from [didcomm-node](https://www.npmjs.com/package/didcomm-node) for Node.js or
+    // [didcomm](https://www.npmjs.com/package/didcomm) for browser.
+    // The `Message` object can be used to perform further operations. See the package documentation for more details.
+
     // Direct message example.
     let directMessageString = createDirectMessage({
         id: "test-id-1",

@@ -2,6 +2,7 @@ use crate::types::{DirectMessageOptions, KeySharingMessageOptions, MediaItemsMes
 use didcomm_module::{DirectMessageBuilder, KeySharingMessageBuilder, MediaItemsMessageBuilder};
 use wasm_bindgen::prelude::*;
 
+/// Helper function for creating a DIDComm message for direct messages.
 #[wasm_bindgen(js_name = createDirectMessage)]
 pub fn create_direct_message(options: DirectMessageOptions) -> Result<String, String> {
     let mut builder = DirectMessageBuilder::new();
@@ -27,6 +28,7 @@ pub fn create_direct_message(options: DirectMessageOptions) -> Result<String, St
         .map(|msg| serde_json::to_string(&msg).unwrap())
 }
 
+/// Helper function for creating a DIDComm message for media items.
 #[wasm_bindgen (js_name = createMediaItemMessage)]
 pub fn create_media_item_message(options: MediaItemsMessageOptions) -> Result<String, String> {
     let mut builder = MediaItemsMessageBuilder::new();
@@ -56,6 +58,7 @@ pub fn create_media_item_message(options: MediaItemsMessageOptions) -> Result<St
         .map(|msg| serde_json::to_string(&msg).unwrap())
 }
 
+/// Helper function for creating a DIDComm message for key sharing.
 #[wasm_bindgen(js_name = createKeySharingMessage)]
 pub fn create_key_sharing_message(
     options: KeySharingMessageOptions,

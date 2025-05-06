@@ -3,39 +3,54 @@ use serde_json::Value;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;
 
+/// Options for creating a DIDComm message for direct messages.
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct DirectMessageOptions {
+    /// ID of the message.
     pub(crate) id: String,
+    /// Creation time of the message.
     #[tsify(optional)]
     #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
+    /// Expiration time of the message.
     #[tsify(optional)]
     #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
+    /// Recipients of the message.
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,
+    /// Sender of the message.
     #[tsify(optional)]
     pub(crate) from: Option<String>,
+    /// Content of the message.
     pub(crate) message: String,
 }
 
+/// Options for creating a DIDComm message for key sharing.
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct KeySharingMessageOptions {
+    /// ID of the message.
     pub(crate) id: String,
+    /// Creation time of the message.
     #[tsify(optional)]
     #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
+    /// Expiration time of the message.
     #[tsify(optional)]
     #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
+    /// Recipients of the message.
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,
+    /// Sender of the message.
     #[tsify(optional)]
     pub(crate) from: Option<String>,
+    /// Latest key.
     #[serde(rename = "latestKey")]
     pub(crate) latest_key: Key,
+    /// Previous keys.
     #[tsify(optional)]
     #[serde(rename = "previousKeys")]
     pub(crate) previous_keys: Option<Vec<Key>>,
@@ -63,21 +78,29 @@ pub struct Key {
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct MediaItemsMessageOptions {
+    /// ID of the message.
     pub(crate) id: String,
+    /// Recipients of the message.
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,
+    /// Sender of the message.
     #[tsify(optional)]
     pub(crate) from: Option<String>,
+    /// Creation time of the message.
     #[tsify(optional)]
     #[serde(rename = "createdTime")]
     pub(crate) created_time: Option<u64>,
+    /// Expiration time of the message.
     #[tsify(optional)]
     #[serde(rename = "expiresTime")]
     pub(crate) expires_time: Option<u64>,
+    /// List of media items.
     #[serde(rename = "mediaItems")]
     pub(crate) media_items: Vec<MediaItem>,
 }
 
+/// Media item structure.
+/// Represents a media item that can be shared in a media item DIDComm message.
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct MediaItem {

@@ -60,9 +60,7 @@ pub fn create_media_item_message(options: MediaItemsMessageOptions) -> Result<St
 
 /// Helper function for creating a DIDComm message for key sharing.
 #[wasm_bindgen(js_name = createKeySharingMessage)]
-pub fn create_key_sharing_message(
-    options: KeySharingMessageOptions,
-) -> Result<String, String> {
+pub fn create_key_sharing_message(options: KeySharingMessageOptions) -> Result<String, String> {
     let mut builder = KeySharingMessageBuilder::new();
     if let Some(from) = options.from {
         builder = builder.from(from);

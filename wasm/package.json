@@ -4,8 +4,7 @@
     "description": "",
     "type": "commonjs",
     "scripts": {
-        "build": " wasm-pack build --target nodejs",
-        "pack": " wasm-pack pack",
+        "build": "wasm-pack build --release --out-dir web --out-name didcomm-module-web --target web && wasm-pack build --release --out-dir node --out-name didcomm-module-node --target nodejs",
         "example": "tsx ./examples/main.ts"
     },
     "author": "",

@@ -42,7 +42,7 @@ Helps to create a DIDComm message for [Media Sharing](https://didcomm.org/media-
 
 ## `KeySharingMessageBuilder`
 
-Helps to create a DIDComm message that can be for secure key sharing.
+Helps to create a DIDComm message that can be used for secure key sharing.
 
 ```rust
     let msg = KeySharingMessageBuilder::new()

@@ -121,30 +121,30 @@ pub struct MediaItem {
     pub ciphering: Option<Value>,
 }
 
-impl Into<didcomm_module::MediaItem> for MediaItem {
-    fn into(self) -> didcomm_module::MediaItem {
+impl From<MediaItem> for didcomm_module::MediaItem {
+    fn from(val: MediaItem) -> Self {
         didcomm_module::MediaItem {
-            id: self.id,
-            media_type: self.media_type,
-            filename: self.filename,
-            description: self.description,
-            link: self.link,
-            hash: self.hash,
-            ciphering: self.ciphering,
+            id: val.id,
+            media_type: val.media_type,
+            filename: val.filename,
+            description: val.description,
+            link: val.link,
+            hash: val.hash,
+            ciphering: val.ciphering,
         }
     }
 }
 
-impl Into<didcomm_module::Key> for Key {
-    fn into(self) -> didcomm_module::Key {
+impl From<Key> for didcomm_module::Key {
+    fn from(val: Key) -> Self {
         didcomm_module::Key {
-            kty: self.kty,
-            crv: self.crv,
-            x: self.x,
-            y: self.y,
-            d: self.d,
-            usage: self.usage,
-            kid: self.kid,
+            kty: val.kty,
+            crv: val.crv,
+            x: val.x,
+            y: val.y,
+            d: val.d,
+            usage: val.usage,
+            kid: val.kid,
         }
     }
 }

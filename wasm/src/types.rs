@@ -49,16 +49,16 @@ pub struct KeySharingMessageOptions {
     pub(crate) from: Option<String>,
     /// Latest key.
     #[serde(rename = "latestKey")]
-    pub(crate) latest_key: Key,
+    pub(crate) latest_key: JsonWebKey,
     /// Previous keys.
     #[tsify(optional)]
     #[serde(rename = "previousKeys")]
-    pub(crate) previous_keys: Option<Vec<Key>>,
+    pub(crate) previous_keys: Option<Vec<JsonWebKey>>,
 }
 
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
-pub struct Key {
+pub struct JsonWebKey {
     /// Key type
     pub kty: String,
     /// Curve
@@ -70,7 +70,8 @@ pub struct Key {
     /// Private key
     pub d: String,
     /// Key usage
-    pub usage: String,
+    #[serde(rename = "use")]
+    pub _use: String,
     /// Key ID
     pub kid: String,
 }
@@ -135,15 +136,15 @@ impl From<MediaItem> for didcomm_module::MediaItem {
     }
 }
 
-impl From<Key> for didcomm_module::Key {
-    fn from(val: Key) -> Self {
-        didcomm_module::Key {
+impl From<JsonWebKey> for didcomm_module::JsonWebKey {
+    fn from(val: JsonWebKey) -> Self {
+        didcomm_module::JsonWebKey {
             kty: val.kty,
             crv: val.crv,
             x: val.x,
             y: val.y,
             d: val.d,
-            usage: val.usage,
+            _use: val._use,
             kid: val.kid,
         }
     }

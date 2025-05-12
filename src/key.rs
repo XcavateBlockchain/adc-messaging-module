@@ -2,7 +2,7 @@ use alloc::string::String;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Key {
+pub struct JsonWebKey {
     /// Key type
     pub kty: String,
     /// Curve
@@ -14,7 +14,8 @@ pub struct Key {
     /// Private key
     pub d: String,
     /// Key usage
-    pub usage: String,
+    #[serde(rename = "use")]
+    pub _use: String,
     /// Key ID
     pub kid: String,
 }

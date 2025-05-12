@@ -37,7 +37,7 @@ test("direct message builder", () => {
             x: "0000",
             y: "0001",
             d: "0002",
-            usage: "enc",
+            use: "enc",
             kid: "key-id"
         },
         previousKeys: [
@@ -47,7 +47,7 @@ test("direct message builder", () => {
                 x: "0003",
                 y: "0004",
                 d: "0005",
-                usage: "enc",
+                use: "enc",
                 kid: "key-id-2"
             }
         ]
@@ -57,8 +57,8 @@ test("direct message builder", () => {
         typ: "application/didcomm-plain+json",
         type: "<baseuri>/share-media",
         body: {
-            latestKey: { crv: "P-256", d: "0002", kid: "key-id", kty: "EC", usage: "enc", x: "0000", y: "0001" },
-            previousKeys: [{ crv: "P-256", d: "0005", kid: "key-id-2", kty: "EC", usage: "enc", x: "0003", y: "0004" }]
+            latestKey: { crv: "P-256", d: "0002", kid: "key-id", kty: "EC", use: "enc", x: "0000", y: "0001" },
+            previousKeys: [{ crv: "P-256", d: "0005", kid: "key-id-2", kty: "EC", use: "enc", x: "0003", y: "0004" }]
         },
         from: "did:example:test1",
         to: ["did:example:test2"],

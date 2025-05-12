@@ -1,4 +1,4 @@
-use didcomm_module::{Key, KeySharingMessageBuilder, MessageBuilderError};
+use didcomm_module::{JsonWebKey, KeySharingMessageBuilder, MessageBuilderError};
 use serde_json::json;
 
 #[test]
@@ -17,7 +17,7 @@ pub fn key_sharing() {
         "d": "0004",
         "kid": "<key fingerprint>",
         "kty": "EC",
-        "usage": "enc",
+        "use": "enc",
         "x": "0002",
         "y": "0003"
         },
@@ -27,7 +27,7 @@ pub fn key_sharing() {
             "d": "0002",
             "kid": "<key fingerprint>",
             "kty": "EC",
-            "usage": "enc",
+            "use": "enc",
             "x": "0000",
             "y": "0001"
         }
@@ -61,26 +61,26 @@ pub fn key_sharing_no_previous_keys() {
     assert!(msg.is_ok());
 }
 
-fn key1() -> Key {
-    Key {
+fn key1() -> JsonWebKey {
+    JsonWebKey {
         kty: "EC".to_string(),
         crv: "P-256".to_string(),
         x: "0000".into(),
         y: "0001".into(),
         d: "0002".into(),
-        usage: "enc".into(),
+        _use: "enc".into(),
         kid: "<key fingerprint>".into(),
     }
 }
 
-fn key2() -> Key {
-    Key {
+fn key2() -> JsonWebKey {
+    JsonWebKey {
         kty: "EC".to_string(),
         crv: "P-256".to_string(),
         x: "0002".into(),
         y: "0003".into(),
         d: "0004".into(),
-        usage: "enc".into(),
+        _use: "enc".into(),
         kid: "<key fingerprint>".into(),
     }
 }

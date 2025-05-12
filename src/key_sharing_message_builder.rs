@@ -2,7 +2,7 @@ use alloc::{string::String, vec::Vec};
 use didcomm::Message;
 use didcomm::MessageBuilder;
 
-use crate::{error::MessageBuilderError, impl_common_builder, Key};
+use crate::{error::MessageBuilderError, impl_common_builder, JsonWebKey};
 
 /// Builder for creating a DIDComm message for key sharing.
 #[derive(Debug, Clone, Default)]
@@ -12,14 +12,14 @@ pub struct KeySharingMessageBuilder {
     expires_time: Option<u64>,
     to: Option<Vec<String>>,
     from: Option<String>,
-    latest_key: Option<Key>,
-    previous_keys: Option<Vec<Key>>,
+    latest_key: Option<JsonWebKey>,
+    previous_keys: Option<Vec<JsonWebKey>>,
 }
 
 impl KeySharingMessageBuilder {
     /// Adds a previous key.
     /// Multiple previous keys can be added.
-    pub fn previous_key(mut self, value: Key) -> Self {
+    pub fn previous_key(mut self, value: JsonWebKey) -> Self {
         if let Some(ref mut self_previous_keys) = self.previous_keys {
             self_previous_keys.push(value);
         } else {
@@ -30,7 +30,7 @@ impl KeySharingMessageBuilder {
 
     /// Sets the latest key.
     /// Overwrites if called multiple times.
-    pub fn latest_key(mut self, value: Key) -> Self {
+    pub fn latest_key(mut self, value: JsonWebKey) -> Self {
         self.latest_key = Some(value);
         self
     }

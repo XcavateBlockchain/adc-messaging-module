@@ -28,6 +28,7 @@ pub struct DirectMessageOptions {
 }
 
 /// Options for creating a DIDComm message for key sharing.
+/// Keys are structured as a [JWK set format](https://datatracker.ietf.org/doc/html/rfc7517#section-5).
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct KeySharingMessageOptions {
@@ -47,13 +48,8 @@ pub struct KeySharingMessageOptions {
     /// Sender of the message.
     #[tsify(optional)]
     pub(crate) from: Option<String>,
-    /// Latest key.
-    #[serde(rename = "latestKey")]
-    pub(crate) latest_key: JsonWebKey,
-    /// Previous keys.
-    #[tsify(optional)]
-    #[serde(rename = "previousKeys")]
-    pub(crate) previous_keys: Option<Vec<JsonWebKey>>,
+    /// Json Web Keys to be shared.
+    pub(crate) keys: Vec<JsonWebKey>,
 }
 
 #[derive(Tsify, Serialize, Deserialize)]

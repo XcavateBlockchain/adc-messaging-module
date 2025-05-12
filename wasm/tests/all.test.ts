@@ -31,16 +31,16 @@ test("direct message builder", () => {
         expiresTime: 2345,
         to: ["did:example:test2"],
         from: "did:example:test1",
-        latestKey: {
-            kty: "EC",
-            crv: "P-256",
-            x: "0000",
-            y: "0001",
-            d: "0002",
-            use: "enc",
-            kid: "key-id"
-        },
-        previousKeys: [
+        keys: [
+            {
+                kty: "EC",
+                crv: "P-256",
+                x: "0000",
+                y: "0001",
+                d: "0002",
+                use: "enc",
+                kid: "key-id"
+            },
             {
                 kty: "EC",
                 crv: "P-256",
@@ -55,10 +55,12 @@ test("direct message builder", () => {
     const expected = {
         id: "test-id-1",
         typ: "application/didcomm-plain+json",
-        type: "<baseuri>/share-media",
+        type: "<baseuri>/share-key",
         body: {
-            latestKey: { crv: "P-256", d: "0002", kid: "key-id", kty: "EC", use: "enc", x: "0000", y: "0001" },
-            previousKeys: [{ crv: "P-256", d: "0005", kid: "key-id-2", kty: "EC", use: "enc", x: "0003", y: "0004" }]
+            keys: [
+                { crv: "P-256", d: "0002", kid: "key-id", kty: "EC", use: "enc", x: "0000", y: "0001" },
+                { crv: "P-256", d: "0005", kid: "key-id-2", kty: "EC", use: "enc", x: "0003", y: "0004" }
+            ]
         },
         from: "did:example:test1",
         to: ["did:example:test2"],

@@ -5,23 +5,14 @@ use serde_json::json;
 pub fn key_sharing() {
     let msg = KeySharingMessageBuilder::new()
         .id("message-id".to_string())
-        .previous_key(key1())
-        .latest_key(key2())
+        .add_key(key1())
+        .add_key(key2())
         .build()
         .unwrap();
 
     let expected = json!({
     "body": {
-        "latestKey": {
-        "crv": "P-256",
-        "d": "0004",
-        "kid": "<key fingerprint>",
-        "kty": "EC",
-        "use": "enc",
-        "x": "0002",
-        "y": "0003"
-        },
-        "previousKeys": [
+        "keys": [
         {
             "crv": "P-256",
             "d": "0002",
@@ -30,12 +21,21 @@ pub fn key_sharing() {
             "use": "enc",
             "x": "0000",
             "y": "0001"
-        }
+        },
+        {
+            "crv": "P-256",
+            "d": "0004",
+            "kid": "<key fingerprint>",
+            "kty": "EC",
+            "use": "enc",
+            "x": "0002",
+            "y": "0003"
+        },
         ]
     },
     "id": "message-id",
     "typ": "application/didcomm-plain+json",
-    "type": "<baseuri>/share-media"
+    "type": "<baseuri>/share-key"
     });
     assert_eq!(expected, serde_json::to_value(msg).unwrap());
 }
@@ -44,11 +44,10 @@ pub fn key_sharing() {
 pub fn key_sharing_no_latest_key() {
     let msg = KeySharingMessageBuilder::new()
         .id("message-id".to_string())
-        .previous_key(key1())
         .build();
     assert!(matches!(
         msg.unwrap_err(),
-        MessageBuilderError::MissingLatestKey
+        MessageBuilderError::MissingKey
     ));
 }
 
@@ -56,7 +55,7 @@ pub fn key_sharing_no_latest_key() {
 pub fn key_sharing_no_previous_keys() {
     let msg = KeySharingMessageBuilder::new()
         .id("message-id".to_string())
-        .latest_key(key1())
+        .add_key(key1())
         .build();
     assert!(msg.is_ok());
 }

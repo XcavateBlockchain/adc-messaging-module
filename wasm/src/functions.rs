@@ -77,11 +77,8 @@ pub fn create_key_sharing_message(options: KeySharingMessageOptions) -> Result<S
         builder = builder.expires_time(expires_time);
     }
     builder = builder.id(options.id);
-    builder = builder.latest_key(options.latest_key.into());
-    if let Some(previous_keys) = options.previous_keys {
-        for key in previous_keys {
-            builder = builder.previous_key(key.into());
-        }
+    for key in options.keys {
+        builder = builder.add_key(key.into());
     }
     builder
         .build()

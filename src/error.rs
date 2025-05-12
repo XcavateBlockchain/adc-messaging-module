@@ -5,7 +5,7 @@ pub enum MessageBuilderError {
     MissingId,
     MissingBody,
     SerializationError,
-    MissingLatestKey,
+    MissingKey,
     MissingMessage,
     MissingMediaItem,
 }
@@ -16,7 +16,7 @@ impl Display for MessageBuilderError {
             MessageBuilderError::MissingId => "Missing ID in the message",
             MessageBuilderError::MissingBody => "Missing body in the message",
             MessageBuilderError::SerializationError => "Error during message serialization",
-            MessageBuilderError::MissingLatestKey => "Missing latest key",
+            MessageBuilderError::MissingKey => "Missing at least one key in the message",
             MessageBuilderError::MissingMessage => "Missing message content",
             MessageBuilderError::MissingMediaItem => "Missing media item",
         };

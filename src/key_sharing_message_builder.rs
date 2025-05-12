@@ -38,7 +38,7 @@ impl KeySharingMessageBuilder {
     /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         // TODO: Replace with actual base URI? / take it from user?.
-        let type_ = "<baseuri>/share-media";
+        let type_ = "<baseuri>/share-key";
         let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;
         let latest_key = self
             .latest_key

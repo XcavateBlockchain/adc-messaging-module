@@ -1,5 +1,5 @@
 import { IMessage, Message } from "didcomm-node";
-import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "../node";
+import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "#message-module";
 
 function main() {
     // This example uses the helper functions from this module to create messages.
@@ -17,7 +17,7 @@ function main() {
         message: "test message"
     });
 
-    let directMsg = new Message(JSON.parse(directMessageString) );
+    let directMsg = new Message(JSON.parse(directMessageString));
     console.log("Direct message:");
     console.log(directMsg.as_value());
 
@@ -28,23 +28,24 @@ function main() {
         expiresTime: time(1),
         to: ["did:example:test2"],
         from: "did:example:test1",
-        latestKey: {
-            kty: "EC",
-            crv: "P-256",
-            x: "0000",
-            y: "0001",
-            d: "0002",
-            usage: "enc",
-            kid: "key-id"
-        },
-        previousKeys: [
+        keys: [
+            {
+                kty: "EC",
+                crv: "P-256",
+                x: "0000",
+                y: "0001",
+                d: "0002",
+                use: "enc",
+                kid: "key-id"
+            },
+
             {
                 kty: "EC",
                 crv: "P-256",
                 x: "0003",
                 y: "0004",
                 d: "0005",
-                usage: "enc",
+                use: "enc",
                 kid: "key-id-2"
             }
         ]

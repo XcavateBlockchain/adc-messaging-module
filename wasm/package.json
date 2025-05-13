@@ -23,6 +23,14 @@
     "dependencies": {
         "did-resolver": "^4.1.0",
         "didcomm-node": "^0.4.1",
-        "message-module": "file:./pkg"
+        "message-module-node": "file:./node",
+        "message-module-web": "file:./web"
+    },
+    "imports": {
+        "#message-module": {
+            "node": "message-module-node",
+            "browser": "message-module-web",
+            "default": "message-module-node"
+        }
     }
 }

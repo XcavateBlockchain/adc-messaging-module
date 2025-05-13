@@ -41,8 +41,7 @@ impl MediaItemsMessageBuilder {
 
     /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
-        // TODO: Replace with actual base URI? / take it from user?.
-        let type_ = "<baseuri>/share-media";
+        let type_ = "https://didcomm.org/media-sharing/1.0/share-media";
         let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;
 
         if self.media_items_inlined.is_none() && self.media_items_referenced.is_none() {

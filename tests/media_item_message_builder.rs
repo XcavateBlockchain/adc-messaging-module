@@ -73,7 +73,7 @@ pub fn media_item() {
         },
         "id": "message-id",
         "typ": "application/didcomm-plain+json",
-        "type": "<baseuri>/share-media"
+        "type": "https://didcomm.org/media-sharing/1.0/share-media"
     });
     assert_eq!(expected, serde_json::to_value(msg).unwrap());
 }

@@ -104,7 +104,7 @@ test("create media item builder", () => {
     const expected = {
         id: "test-id-1",
         typ: "application/didcomm-plain+json",
-        type: "<baseuri>/share-media",
+        type: "https://didcomm.org/media-sharing/1.0/share-media",
         body: {
             items: [
                 {
@@ -171,7 +171,7 @@ test("create media item builder, one item", () => {
     const expected = {
         id: "test-id-1",
         typ: "application/didcomm-plain+json",
-        type: "<baseuri>/share-media",
+        type: "https://didcomm.org/media-sharing/1.0/share-media",
         body: {
             items: [
                 {
@@ -227,7 +227,7 @@ test("create media item, one reference item", () => {
     const expected = {
         id: "test-id-1",
         typ: "application/didcomm-plain+json",
-        type: "<baseuri>/share-media",
+        type: "https://didcomm.org/media-sharing/1.0/share-media",
         body: {
             items: [
                 {

@@ -96,31 +96,59 @@ pub struct MediaItemsMessageOptions {
     pub(crate) media_items: Vec<MediaItem>,
 }
 
-/// Media item structure.
-/// Represents a media item that can be shared in a media item DIDComm message.
 #[derive(Tsify, Serialize, Deserialize)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
-pub struct MediaItem {
+#[serde(untagged)] // Makes it work as a union without tagging in JSON
+pub enum MediaItem {
+    Referenced(MediaItemReferenced),
+    Inlined(MediaItemInlined),
+}
+
+/// Media item structure.
+/// Represents a media item that can be shared by reference in a media item DIDComm message.
+#[derive(Tsify, Serialize, Deserialize)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct MediaItemReferenced {
     /// Attachment ID.
     pub id: String,
     /// Media type of file
     pub media_type: String,
     /// File name
-    pub filename: String,
+    #[tsify(optional)]
+    pub filename: Option<String>,
     /// File description
-    pub description: String,
+    #[tsify(optional)]
+    pub description: Option<String>,
     /// Reference
     pub link: String,
     /// The hash of the content encoded in multi-hash format. Used as an integrity check for the attachment.
     pub hash: String,
     /// Encryption information
     #[tsify(type = "any | null")]
+    #[tsify(optional)]
     pub ciphering: Option<Value>,
 }
+// / Represents a media item with inline content in a DIDComm message.
+#[derive(Tsify, Serialize, Deserialize)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct MediaItemInlined {
+    /// Attachment ID.
+    pub id: String,
+    /// Media type of file.
+    pub media_type: String,
+    /// File name.
+    #[tsify(optional)]
+    pub filename: Option<String>,
+    /// File description.
+    #[tsify(optional)]
+    pub description: Option<String>,
+    /// File contents encoded as base64.
+    pub base64: String,
+}
 
-impl From<MediaItem> for didcomm_module::MediaItem {
-    fn from(val: MediaItem) -> Self {
-        didcomm_module::MediaItem {
+impl From<MediaItemReferenced> for didcomm_module::MediaItemReferenced {
+    fn from(val: MediaItemReferenced) -> Self {
+        didcomm_module::MediaItemReferenced {
             id: val.id,
             media_type: val.media_type,
             filename: val.filename,
@@ -128,6 +156,18 @@ impl From<MediaItem> for didcomm_module::MediaItem {
             link: val.link,
             hash: val.hash,
             ciphering: val.ciphering,
+        }
+    }
+}
+
+impl From<MediaItemInlined> for didcomm_module::MediaItemInlined {
+    fn from(val: MediaItemInlined) -> Self {
+        didcomm_module::MediaItemInlined {
+            id: val.id,
+            media_type: val.media_type,
+            filename: val.filename,
+            description: val.description,
+            base64: val.base64,
         }
     }
 }

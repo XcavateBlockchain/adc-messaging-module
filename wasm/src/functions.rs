@@ -49,7 +49,14 @@ pub fn create_media_item_message(options: MediaItemsMessageOptions) -> Result<St
     builder = builder.id(options.id);
 
     for media_item in options.media_items {
-        builder = builder.media_item(media_item.into());
+        match media_item {
+            crate::types::MediaItem::Referenced(media_item_referenced) => {
+                builder = builder.media_item_referenced(media_item_referenced.into())
+            }
+            crate::types::MediaItem::Inlined(media_item_inlined) => {
+                builder = builder.media_item_inlined(media_item_inlined.into())
+            }
+        }
     }
 
     builder

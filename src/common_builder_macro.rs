@@ -49,16 +49,16 @@ macro_rules! impl_common_builder {
             }
 
             fn add_common_to_builder(
-                self,
+                &self,
                 mut didcomm_msg_builder: MessageBuilder,
             ) -> Result<MessageBuilder, MessageBuilderError> {
-                if let Some(to) = self.to {
+                if let Some(to) = self.to.clone() {
                     for value in to {
                         didcomm_msg_builder = didcomm_msg_builder.to(value);
                     }
                 }
 
-                if let Some(from) = self.from {
+                if let Some(from) = self.from.clone() {
                     didcomm_msg_builder = didcomm_msg_builder.from(from);
                 }
 

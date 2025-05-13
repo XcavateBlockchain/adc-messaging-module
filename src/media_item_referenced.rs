@@ -6,37 +6,45 @@ use uuid::Uuid;
 
 use crate::error::MessageBuilderError;
 
-// / Represents a media item in a DIDComm message.
-#[derive(Debug, Clone)]
-pub struct MediaItem {
+// / Represents a media item by reference in a DIDComm message.
+#[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct MediaItemReferenced {
     /// Attachment ID.
     pub id: String,
     /// Media type of file
     pub media_type: String,
     /// File name
-    pub filename: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filename: Option<String>,
     /// File description
-    pub description: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     /// Reference
     pub link: String,
     /// The hash of the content encoded in multi-hash format. Used as an integrity check for the attachment.
     pub hash: String,
     /// Encryption information
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ciphering: Option<Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
-struct MediaItemInBody {
+pub(crate) struct MediaItemInBody {
     #[serde(rename = "@id")]
-    id: String,
-    attachment_id: String,
+    pub(crate) id: String,
+    pub(crate) attachment_id: String,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    ciphering: Option<Value>,
+    pub(crate) ciphering: Option<Value>,
 }
 
-impl MediaItem {
-    pub(crate) fn to_body_item(&self) -> Result<Value, MessageBuilderError> {
+pub trait MediaItemTrait {
+    fn to_body_item(&self) -> Result<Value, MessageBuilderError>;
+    fn into_attachment(self) -> Attachment;
+}
+
+impl MediaItemTrait for MediaItemReferenced {
+    fn to_body_item(&self) -> Result<Value, MessageBuilderError> {
         serde_json::to_value(MediaItemInBody {
             id: Uuid::new_v4().to_string(),
             attachment_id: self.id.clone(),
@@ -45,19 +53,19 @@ impl MediaItem {
         .map_err(|_| MessageBuilderError::SerializationError)
     }
 
-    pub(crate) fn to_attachment(&self) -> Attachment {
+    fn into_attachment(self) -> Attachment {
         Attachment {
-            id: Some(self.id.clone()),
-            media_type: Some(self.media_type.clone()),
+            id: Some(self.id),
+            media_type: Some(self.media_type),
             data: didcomm::AttachmentData::Links {
                 value: LinksAttachmentData {
-                    links: vec![self.link.clone()],
-                    hash: self.hash.clone(),
+                    links: vec![self.link],
+                    hash: self.hash,
                     jws: None,
                 },
             },
-            description: Some(self.description.clone()),
-            filename: Some(self.filename.clone()),
+            description: self.description,
+            filename: self.filename,
             format: None,
             lastmod_time: None,
             byte_count: None,

@@ -21,7 +21,7 @@ Helps to create a [Basic Message](https://didcomm.org/basicmessage/2.0/) type fo
 Helps to create a DIDComm message for [Media Sharing](https://didcomm.org/media-sharing/1.0/).
 
 ```rust
-    let media_item = MediaItem {
+    let media_item = MediaItemReferenced {
         id: "12345".to_string(),
         media_type: "image/png".to_string(),
         filename: "example.png".to_string(),
@@ -34,7 +34,7 @@ Helps to create a DIDComm message for [Media Sharing](https://didcomm.org/media-
     };
 
     let msg = MediaItemsMessageBuilder::new()
-        .media_item(media_item.clone())
+        .media_item_referenced(media_item.clone())
         .id("message-id".to_string())
         .build()
         .unwrap();

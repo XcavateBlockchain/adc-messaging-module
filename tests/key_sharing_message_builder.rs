@@ -45,10 +45,7 @@ pub fn key_sharing_no_latest_key() {
     let msg = KeySharingMessageBuilder::new()
         .id("message-id".to_string())
         .build();
-    assert!(matches!(
-        msg.unwrap_err(),
-        MessageBuilderError::MissingKey
-    ));
+    assert!(matches!(msg.unwrap_err(), MessageBuilderError::MissingKey));
 }
 
 #[test]

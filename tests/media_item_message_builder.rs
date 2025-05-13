@@ -95,7 +95,7 @@ pub fn media_item_no_id() {
     let msg = MediaItemsMessageBuilder::new()
         .media_item_referenced(media_item.clone())
         .build();
-    assert!(matches!(msg.unwrap_err(), MessageBuilderError::MissingId));
+    assert_eq!(msg.unwrap().id.len(), 36);
 }
 
 #[test]

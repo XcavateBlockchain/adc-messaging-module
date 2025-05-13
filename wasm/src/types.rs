@@ -8,7 +8,8 @@ use wasm_bindgen::prelude::*;
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct DirectMessageOptions {
     /// ID of the message.
-    pub(crate) id: String,
+    #[tsify(optional)]
+    pub(crate) id: Option<String>,
     /// Creation time of the message.
     #[tsify(optional)]
     #[serde(rename = "createdTime")]
@@ -33,7 +34,8 @@ pub struct DirectMessageOptions {
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct KeySharingMessageOptions {
     /// ID of the message.
-    pub(crate) id: String,
+    #[tsify(optional)]
+    pub(crate) id: Option<String>,
     /// Creation time of the message.
     #[tsify(optional)]
     #[serde(rename = "createdTime")]
@@ -76,7 +78,8 @@ pub struct JsonWebKey {
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct MediaItemsMessageOptions {
     /// ID of the message.
-    pub(crate) id: String,
+    #[tsify(optional)]
+    pub(crate) id: Option<String>,
     /// Recipients of the message.
     #[tsify(optional)]
     pub(crate) to: Option<Vec<String>>,

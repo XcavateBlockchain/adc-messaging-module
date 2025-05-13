@@ -20,7 +20,9 @@ pub fn create_direct_message(options: DirectMessageOptions) -> Result<String, St
     if let Some(expires_time) = options.expires_time {
         builder = builder.expires_time(expires_time);
     }
-    builder = builder.id(options.id);
+    if let Some(id) = options.id {
+        builder = builder.id(id);
+    }
     builder = builder.message(options.message);
     builder
         .build()
@@ -46,7 +48,9 @@ pub fn create_media_item_message(options: MediaItemsMessageOptions) -> Result<St
     if let Some(expires_time) = options.expires_time {
         builder = builder.expires_time(expires_time);
     }
-    builder = builder.id(options.id);
+    if let Some(id) = options.id {
+        builder = builder.id(id);
+    }
 
     for media_item in options.media_items {
         match media_item {
@@ -83,7 +87,9 @@ pub fn create_key_sharing_message(options: KeySharingMessageOptions) -> Result<S
     if let Some(expires_time) = options.expires_time {
         builder = builder.expires_time(expires_time);
     }
-    builder = builder.id(options.id);
+    if let Some(id) = options.id {
+        builder = builder.id(id);
+    }
     for key in options.keys {
         builder = builder.add_key(key.into());
     }

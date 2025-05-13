@@ -1,6 +1,8 @@
+use alloc::string::ToString;
 use alloc::{string::String, vec::Vec};
 use didcomm::Message;
 use didcomm::MessageBuilder;
+use uuid::Uuid;
 
 use crate::{error::MessageBuilderError, impl_common_builder, JsonWebKey};
 
@@ -27,7 +29,7 @@ impl KeySharingMessageBuilder {
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         // TODO: Replace with actual base URI? / take it from user?.
         let type_ = "<baseuri>/share-key";
-        let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;
+        let id = self.id.clone().unwrap_or(Uuid::new_v4().to_string());
         if self.keys.is_empty() {
             return Err(MessageBuilderError::MissingKey);
         }

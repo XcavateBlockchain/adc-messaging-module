@@ -1,6 +1,8 @@
+use alloc::string::ToString;
 use alloc::{string::String, vec::Vec};
 use didcomm::Message;
 use didcomm::MessageBuilder;
+use uuid::Uuid;
 
 use crate::error::MessageBuilderError;
 use crate::impl_common_builder;
@@ -28,7 +30,7 @@ impl DirectMessageBuilder {
     /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         let type_ = "https://didcomm.org/basicmessage/2.0/message";
-        let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;
+        let id = self.id.clone().unwrap_or(Uuid::new_v4().to_string());
         let message = self
             .message
             .clone()

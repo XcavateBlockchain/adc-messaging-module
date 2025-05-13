@@ -1,5 +1,6 @@
-use alloc::{string::String, vec::Vec};
+use alloc::{string::{String, ToString}, vec::Vec};
 use didcomm::{Message, MessageBuilder};
+use uuid::Uuid;
 
 use crate::{
     error::MessageBuilderError, impl_common_builder, media_item_referenced::MediaItemTrait,
@@ -42,7 +43,7 @@ impl MediaItemsMessageBuilder {
     /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
         let type_ = "https://didcomm.org/media-sharing/1.0/share-media";
-        let id = self.id.clone().ok_or(MessageBuilderError::MissingId)?;
+        let id = self.id.clone().unwrap_or(Uuid::new_v4().to_string());
 
         if self.media_items_inlined.is_none() && self.media_items_referenced.is_none() {
             return Err(MessageBuilderError::MissingMediaItem);

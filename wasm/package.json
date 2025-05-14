@@ -1,6 +1,7 @@
 {
     "name": "didcomm-module-wasm",
     "version": "1.0.0",
+    "private": true,
     "description": "",
     "type": "commonjs",
     "scripts": {
@@ -15,22 +16,10 @@
         "@types/jest": "^29.5.14",
         "jest": "^29.7.0",
         "ts-jest": "^29.3.2",
-        "ts-node": "^10.9.2",
         "tsx": "^4.19.4",
         "typescript": "^5.8.3",
-        "wasm-pack": "^0.13.1"
-    },
-    "dependencies": {
-        "did-resolver": "^4.1.0",
+        "wasm-pack": "^0.13.1",
         "didcomm-node": "^0.4.1",
-        "message-module-node": "file:./node",
-        "message-module-web": "file:./web"
-    },
-    "imports": {
-        "#message-module": {
-            "node": "message-module-node",
-            "browser": "message-module-web",
-            "default": "message-module-node"
-        }
+        "message-module-node": "file:./node"
     }
 }

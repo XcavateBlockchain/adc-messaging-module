@@ -1,5 +1,5 @@
 import { expect, test } from "@jest/globals";
-import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "../node/didcomm-module-node";
+import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "message-module-node";
 
 test("direct message builder", () => {
     let directMessageString = createDirectMessage({

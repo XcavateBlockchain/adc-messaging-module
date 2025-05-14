@@ -1,5 +1,5 @@
-import { IMessage, Message } from "didcomm-node";
-import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "#message-module";
+import { type IMessage, Message } from "didcomm-node";
+import { createDirectMessage, createKeySharingMessage, createMediaItemMessage } from "message-module-node";
 
 function main() {
     // This example uses the helper functions from this module to create messages.

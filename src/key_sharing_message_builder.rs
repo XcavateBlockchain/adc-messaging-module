@@ -27,8 +27,9 @@ impl KeySharingMessageBuilder {
 
     /// Builds the DIDComm message.
     pub fn build(self) -> Result<Message, MessageBuilderError> {
-        // TODO: Replace with actual base URI? / take it from user?.
-        let type_ = "<baseuri>/share-key";
+        // TODO: A write-up of the protocol describing the message type must be submitted to didcomm.org.
+        // See https://github.com/decentralized-identity/didcomm.org/blob/main/docs/pr-guide.md to learn how.
+        let type_ = "https://didcomm.org/key-sharing/1.0/send-keys";
         let id = self.id.clone().unwrap_or(Uuid::new_v4().to_string());
         if self.keys.is_empty() {
             return Err(MessageBuilderError::MissingKey);

@@ -55,7 +55,7 @@ test("key sharing builder", () => {
     const expected = {
         id: "test-id-1",
         typ: "application/didcomm-plain+json",
-        type: "<baseuri>/share-key",
+        type: "https://didcomm.org/key-sharing/1.0/send-keys",
         body: {
             keys: [
                 { crv: "P-256", d: "0002", kid: "key-id", kty: "EC", use: "enc", x: "0000", y: "0001" },

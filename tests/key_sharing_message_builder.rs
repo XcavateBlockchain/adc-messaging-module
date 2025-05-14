@@ -35,7 +35,7 @@ pub fn key_sharing() {
     },
     "id": "message-id",
     "typ": "application/didcomm-plain+json",
-    "type": "<baseuri>/share-key"
+    "type": "https://didcomm.org/key-sharing/1.0/send-keys"
     });
     assert_eq!(expected, serde_json::to_value(msg).unwrap());
 }

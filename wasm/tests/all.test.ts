@@ -86,9 +86,11 @@ test("create media item builder", () => {
                 link: "ipfs://example-link/test.pdf",
                 hash: "xyz..",
                 ciphering: {
-                    alg: "AES-GCM",
-                    iv: "test-iv",
-                    key: "test-key"
+                    algorithm: "AES-GCM",
+                    parameters: {
+                        iv: "test-iv",
+                        key: "test-key"
+                    }
                 }
             },
             {
@@ -115,9 +117,11 @@ test("create media item builder", () => {
                     "@id": mediaItemsMessage.body.items[1]["@id"],
                     attachment_id: "media-item-id-1",
                     ciphering: {
-                        alg: "AES-GCM",
-                        iv: "test-iv",
-                        key: "test-key"
+                        algorithm: "AES-GCM",
+                        parameters: {
+                            iv: "test-iv",
+                            key: "test-key"
+                        }
                     }
                 }
             ]
@@ -214,9 +218,11 @@ test("create media item, one reference item", () => {
                 link: "ipfs://example-link/test.pdf",
                 hash: "xyz..",
                 ciphering: {
-                    alg: "AES-GCM",
-                    iv: "test-iv",
-                    key: "test-key"
+                    algorithm: "AES-GCM",
+                    parameters: {
+                        iv: "test-iv",
+                        key: "test-key"
+                    }
                 }
             },
         ]
@@ -234,9 +240,11 @@ test("create media item, one reference item", () => {
                     "@id": mediaItemsMessage.body.items[0]["@id"],
                     attachment_id: "media-item-id-1",
                     ciphering: {
-                        alg: "AES-GCM",
-                        iv: "test-iv",
-                        key: "test-key"
+                        algorithm: "AES-GCM",
+                        parameters: {
+                            iv: "test-iv",
+                            key: "test-key"
+                        }
                     }
                 }
             ]

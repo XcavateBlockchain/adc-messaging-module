@@ -127,7 +127,7 @@ pub struct MediaItemReferenced {
     /// The hash of the content encoded in multi-hash format. Used as an integrity check for the attachment.
     pub hash: String,
     /// Encryption information
-    #[tsify(type = "any | null")]
+    #[tsify(type = "{algorithm: string, parameters: Record<string, unknown>}")]
     #[tsify(optional)]
     pub ciphering: Option<Value>,
 }

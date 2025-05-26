@@ -29,8 +29,12 @@ Helps to create a DIDComm message for [Media Sharing](https://didcomm.org/media-
         link: "https://example.com/image.png".to_string(),
         hash: "hash-example".to_string(),
         ciphering: Some(json!({
-            "alg": "aes-256-cbc",
-        })),
+            "algorithm": "aes-256-cbc",
+            "parameters" : {
+                "iv": "2f3849399c60cb04b923bd33265b81c7",
+                "key": "233f8ce4ac6aa125927ccd98af5750d08c9c61d98a3f5d43cbf096b4caaebe80"
+            }
+            })),
     };
 
     let msg = MediaItemsMessageBuilder::new()
@@ -47,9 +51,8 @@ Helps to create a DIDComm message that can be used for secure key sharing.
 ```rust
     let msg = KeySharingMessageBuilder::new()
         .id("message-id".to_string())
-        .latest_key(key1)
-        .previous_key(key2)
-        .previous_key(key3)
+        .add_key(key1)
+        .add_key(key2)
         .build()
         .unwrap();
 ```

@@ -64,7 +64,7 @@ fn key1() -> JsonWebKey {
         x: "0000".into(),
         y: "0001".into(),
         d: "0002".into(),
-        _use: "enc".into(),
+        use_: "enc".into(),
         kid: "<key fingerprint>".into(),
     }
 }
@@ -76,7 +76,7 @@ fn key2() -> JsonWebKey {
         x: "0002".into(),
         y: "0003".into(),
         d: "0004".into(),
-        _use: "enc".into(),
+        use_: "enc".into(),
         kid: "<key fingerprint>".into(),
     }
 }

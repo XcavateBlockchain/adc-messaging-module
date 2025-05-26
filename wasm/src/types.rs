@@ -183,7 +183,7 @@ impl From<JsonWebKey> for didcomm_module::JsonWebKey {
             x: val.x,
             y: val.y,
             d: val.d,
-            _use: val._use,
+            use_: val._use,
             kid: val.kid,
         }
     }
